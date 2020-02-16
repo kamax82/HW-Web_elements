@@ -25,11 +25,11 @@ def browser(request_params):
     else:
         browser = webdriver.Firefox(executable_path=Path.FIREFOX)
     browser.get('http://127.0.0.1/admin/')
-    username = browser.find_element_by_css_selector(AdminLogin.INPUT_USERNAME)  # Find username field
+    username = browser.find_element(*AdminLogin.INPUT_USERNAME)  # Find username field
     username.clear()  # Clear field to avoid unexpected symbols
     username.send_keys('admin')  # Enter username
-    password = browser.find_element_by_css_selector(AdminLogin.INPUT_PASSWORD)  # Find password field
+    password = browser.find_element(*AdminLogin.INPUT_PASSWORD)  # Find password field
     password.clear()  # Clear field to avoid unexpected symbols
     password.send_keys('kamax')  # Enter password
-    browser.find_element_by_css_selector(AdminLogin.LOGIN_BUTTON).click()  # confirm authorization
+    browser.find_element(*AdminLogin.LOGIN_BUTTON).click()  # confirm authorization
     return browser
