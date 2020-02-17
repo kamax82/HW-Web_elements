@@ -1,6 +1,6 @@
 import pytest
 from selenium import webdriver
-from locators.AdminLogin import AdminLogin
+from locators import AdminLogin
 from drivers import Path
 
 
