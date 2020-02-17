@@ -1,6 +1,6 @@
 import pytest
 from selenium import webdriver
-from locators import AdminLogin
+from locators.AdminLogin import AdminLogin
 from drivers import Path
 
 
@@ -19,11 +19,16 @@ def request_params(request):
 
 @pytest.fixture
 def browser(request_params):
-    '''2nd fixture handling the browser choose. Running browser and First step - authorization'''
+    '''2nd fixture handling the browser choose.'''
     if request_params['browser'] == 'Chrome':
         browser = webdriver.Chrome(executable_path=Path.CHROME)
     else:
         browser = webdriver.Firefox(executable_path=Path.FIREFOX)
+    return browser
+
+@pytest.fixture
+def authorized_user(browser):
+    '''3rd fixture Running browser and First step - authorization'''
     browser.get('http://127.0.0.1/admin/')
     username = browser.find_element(*AdminLogin.INPUT_USERNAME)  # Find username field
     username.clear()  # Clear field to avoid unexpected symbols
