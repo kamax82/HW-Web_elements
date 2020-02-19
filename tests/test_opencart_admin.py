@@ -16,7 +16,7 @@ def test_prod_adding(authorized_user):
     '''Navigate and add new product into catalog. Only required fields will be filled'''
     authorized_user.find_element(*AdminLogin.MAIN_MENU_CATALOG).click()  # Navigate to Catalog
     wait = WebDriverWait(authorized_user, 10)  # Wait to be sure that sub menu is available
-    wait.until(EC.visibility_of_element_located(tuple(AdminLogin.MAIN_MENU_CATALOG_PROD))).click()  # Navigate to Products sub menu an enter
+    wait.until(EC.visibility_of_element_located(AdminLogin.MAIN_MENU_CATALOG_PROD)).click()  # Navigate to Products sub menu an enter
     authorized_user.find_element(*AdminLogin.CREATION_BUTTON).click()  # Click on Add new product button
     prod_name = authorized_user.find_element(*AdminLogin.PROD_NAME_INPUT)  # Find product name field
     prod_name.clear()  # Clear field to avoid unexpected symbols
@@ -29,7 +29,7 @@ def test_prod_adding(authorized_user):
     model.clear()  # Clear field to avoid unexpected symbols
     model.send_keys(MODEL_NAME)  # Type model
     authorized_user.find_element(*AdminLogin.SAVE_BUTTON).click()  # Save product information
-    wait.until(EC.visibility_of_element_located(tuple(AdminLogin.SUCCESS)))
+    wait.until(EC.visibility_of_element_located(AdminLogin.SUCCESS))
     success = authorized_user.find_element(*AdminLogin.SUCCESS)
     assert success.text == 'Success: You have modified products!\n×'
     authorized_user.quit()
@@ -39,14 +39,14 @@ def test_prod_editing(authorized_user):
     '''Navigate, find the product which was just added and edit it'''
     authorized_user.find_element(*AdminLogin.MAIN_MENU_CATALOG).click()
     wait = WebDriverWait(authorized_user, 10)
-    wait.until(EC.visibility_of_element_located(tuple(AdminLogin.MAIN_MENU_CATALOG_PROD))).click()
+    wait.until(EC.visibility_of_element_located(AdminLogin.MAIN_MENU_CATALOG_PROD)).click()
     authorized_user.find_element(*AdminLogin.MAIN_MENU_CATALOG_PROD).click()
     authorized_user.find_element(*XPATH_EDIT).click()  # Use Edit button for the product which was just added
     prod_name = authorized_user.find_element(*AdminLogin.PROD_NAME_INPUT)  # Find product name field
     prod_name.clear()  # Clear field to avoid unexpected symbols
     prod_name.send_keys(PRODUCT_NAME_MOD)  # Type new product name
     authorized_user.find_element(*AdminLogin.SAVE_BUTTON).click()  # Save changes
-    wait.until(EC.visibility_of_element_located(tuple(AdminLogin.SUCCESS)))
+    wait.until(EC.visibility_of_element_located(AdminLogin.SUCCESS))
     success = authorized_user.find_element(*AdminLogin.SUCCESS)
     assert success.text == 'Success: You have modified products!\n×'
     authorized_user.quit()
@@ -56,12 +56,12 @@ def test_prod_deleting(authorized_user):
     '''Navigate, find the product which was just added and delete it'''
     authorized_user.find_element(*AdminLogin.MAIN_MENU_CATALOG).click()
     wait = WebDriverWait(authorized_user, 10)
-    wait.until(EC.visibility_of_element_located(tuple(AdminLogin.MAIN_MENU_CATALOG_PROD))).click()
+    wait.until(EC.visibility_of_element_located(AdminLogin.MAIN_MENU_CATALOG_PROD)).click()
     authorized_user.find_element(*AdminLogin.MAIN_MENU_CATALOG_PROD).click()
     authorized_user.find_element(*XPATH_CHECKBOX).click()  # Use checkbox to opt the product which was just added
     authorized_user.find_element(*AdminLogin.DELETE_BUTTON).click()  # click Trash button to delete the product
     Alert(authorized_user).accept()  # Confirm deletion
-    wait.until(EC.visibility_of_element_located(tuple(AdminLogin.SUCCESS)))
+    wait.until(EC.visibility_of_element_located(AdminLogin.SUCCESS))
     success = authorized_user.find_element(*AdminLogin.SUCCESS)
     assert success.text == 'Success: You have modified products!\n×'
     authorized_user.quit()
