@@ -3,3 +3,8 @@ home_work folder contains the followings:
 - locators - represents locator classes and init file for admin interface
 - tests - represents simple fixture and two test files (for Firefox and Chrome) which of those start 3 tests for adding, 
 editing and deleting product item. Being launched in a row these tests provide CRUD cycle.
+
+For authorization you need to add authorization.py in project root with variables:
+URL = 'http://target address '
+LOGIN = 'your login"
+PASSWORD = 'your password"

@@ -1,6 +1,9 @@
 import pytest
 from selenium import webdriver
-from locators import AdminLogin
+from page_object import AdminPanel
+from page_object import BasePage
+
+import authorization
 
 
 def pytest_addoption(parser):
@@ -29,12 +32,7 @@ def browser(request):
 @pytest.fixture
 def authorized_user(browser):
     '''2nd fixture Running browser and First step - authorization'''
-    browser.get('http://127.0.0.1/admin/')
-    username = browser.find_element(*AdminLogin.INPUT_USERNAME)  # Find username field
-    username.clear()  # Clear field to avoid unexpected symbols
-    username.send_keys('admin')  # Enter username
-    password = browser.find_element(*AdminLogin.INPUT_PASSWORD)  # Find password field
-    password.clear()  # Clear field to avoid unexpected symbols
-    password.send_keys('kamax')  # Enter password
-    browser.find_element(*AdminLogin.LOGIN_BUTTON).click()  # confirm authorization
+    browser.get(authorization.URL)
+    AdminPanel(browser)\
+        .authorization(authorization.LOGIN, authorization.PASSWORD)
     return browser
