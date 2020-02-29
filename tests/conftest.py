@@ -1,7 +1,6 @@
 import pytest
 from selenium import webdriver
 from page_object import AdminPanel
-from page_object import BasePage
 
 import authorization
 
@@ -25,14 +24,14 @@ def browser(request):
         driver = webdriver.Chrome(executable_path=chromedriver)
     else:
         driver = webdriver.Firefox(executable_path=firefoxdriver)
-
+    driver.get(authorization.URL)
     return driver
 
 
 @pytest.fixture
 def authorized_user(browser):
     '''2nd fixture Running browser and First step - authorization'''
-    browser.get(authorization.URL)
-    AdminPanel(browser)\
+    browser.get(authorization.URL + 'admin/')
+    AdminPanel(browser) \
         .authorization(authorization.LOGIN, authorization.PASSWORD)
     return browser

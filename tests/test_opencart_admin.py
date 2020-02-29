@@ -1,11 +1,5 @@
-from selenium.webdriver.common.alert import Alert
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from page_object import AdminPanel
-from page_object import TestInput
+from page_object import AdminPanel, TestInput
 
-
-# from page_object import Alert
 
 
 def test_prod_adding(authorized_user):

@@ -4,6 +4,7 @@ from .TestInput import TestInput
 
 
 class AdminPanel(BasePage):
+    '''Class includes constance and methods to test admin panel'''
     LOGO = {'css': '#header-logo > a > img'}
     INPUT_USERNAME = {'css': '#input-username'}
     INPUT_PASSWORD = {'css': '#input-password'}
@@ -23,28 +24,34 @@ class AdminPanel(BasePage):
     SUCCESS = {'css': '#content > div.container-fluid > div.alert.alert-success.alert-dismissible'}
 
     def authorization(self, login, password):
+        '''Authorization then used as fixture for admin panel tests'''
         self._input(self.INPUT_USERNAME, login)
         self._input(self.INPUT_PASSWORD, password)
         self._click(self.LOGIN_BUTTON)
         return self
 
     def navigate_catalog(self):
+        '''Click on Catalog'''
         self._click(self.MAIN_MENU_CATALOG)
         return self
 
     def navigate_product(self):
+        '''Click on Product (when Catalog uncollapsed)'''
         self._click(self.MAIN_MENU_CATALOG_PROD)
         return self
 
     def verify_visibility(self, selector):
+        '''Check whether element is available for action'''
         self._wait_until_visible(selector)
         return self
 
     def create_item(self):
+        '''Click on Create item button'''
         self._click(self.CREATION_BUTTON)
         return self
 
     def fill_item_fields(self, prod_name, meta_tag, model):
+        '''Filling required fields in product item form'''
         self._input(self.PROD_NAME_INPUT, prod_name)
         self._input(self.PROD_META_INPUT, meta_tag)
         self._click(self.TAB_DATA)
@@ -53,17 +60,21 @@ class AdminPanel(BasePage):
         return self
 
     def edit_item(self):
+        '''Click on Edit button in particular product'''
         self._click(TestInput.XPATH_EDIT)
         return self
 
     def select_item(self):
+        '''Select particular product via checkbox element'''
         self._just_click(TestInput.XPATH_CHECKBOX)
         return self
 
     def delete_item(self, driver):
+        '''Click on Delete button which delete selected product and accept alert'''
         self._click(self.DELETE_BUTTON)
         Alert(driver).accept()
         return self
 
     def check_for_success(self):
-        assert self._get_element_text(selector=self.SUCCESS) == 'Success: You have modified products!\n×'
+        '''Check the result after actions with product items'''
+        assert self._get_element_text(self.SUCCESS) == 'Success: You have modified products!\n×'
